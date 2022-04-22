@@ -26,9 +26,11 @@ import org.junit.Test;
 
 import java.io.PrintStream;
 import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 
 import static io.restassured.http.ContentType.JSON;
 import static io.restassured.module.mockmvc.config.RestAssuredMockMvcConfig.newConfig;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -48,7 +50,7 @@ public class PutTest {
     @Test public void
     doesnt_automatically_adds_x_www_form_urlencoded_as_content_type_when_putting_params() {
         StringWriter writer = new StringWriter();
-        PrintStream captor = new PrintStream(new WriterOutputStream(writer), true);
+        PrintStream captor = new PrintStream(new WriterOutputStream(writer, UTF_8), true);
 
         RestAssuredMockMvc.given().
                 config(newConfig().logConfig(new LogConfig(captor, true))).
@@ -59,7 +61,7 @@ public class PutTest {
                 log().all().
                 statusCode(415);
 
-        assertThat(writer.toString(), equalTo(String.format("415 Content type 'null' not supported%n" +
+        assertThat(writer.toString(), equalTo(String.format("415 Content-Type 'null' is not supported.%n" +
                 "Accept: application/x-www-form-urlencoded%n")));
     }
 

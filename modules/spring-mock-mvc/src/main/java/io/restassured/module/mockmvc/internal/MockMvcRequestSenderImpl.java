@@ -156,6 +156,7 @@ class MockMvcRequestSenderImpl implements MockMvcRequestSender, MockMvcRequestAs
         return new Headers(headers);
     }
 
+
     private Cookies convertCookies(Object[] servletCookies) {
         List<Cookie> cookies = new ArrayList<>();
         for (Object servletCookie : servletCookies) {
@@ -383,7 +384,6 @@ class MockMvcRequestSenderImpl implements MockMvcRequestSender, MockMvcRequestAs
                     cookieClassName = "javax.servlet.http.Cookie";
                 }
                 final Object servletCookie = invokeConstructor(cookieClassName, cookie.getName(), cookie.getValue());
-
                 if (cookie.hasComment()) {
                     invokeMethod(servletCookie, "setComment", cookie.getComment());
                 }
@@ -481,7 +481,7 @@ class MockMvcRequestSenderImpl implements MockMvcRequestSender, MockMvcRequestAs
             return;
         }
 
-        final RequestSpecificationImpl reqSpec = new RequestSpecificationImpl("http://localhost", RestAssured.UNDEFINED_PORT, "", new NoAuthScheme(), Collections.<Filter>emptyList(),
+        final RequestSpecificationImpl reqSpec = new RequestSpecificationImpl("http://localhost", RestAssured.UNDEFINED_PORT, "", new NoAuthScheme(), Collections.emptyList(),
                 null, true, ConfigConverter.convertToRestAssuredConfig(config), logRepository, null, true);
         logParamsAndHeaders(reqSpec, method.toString(), uri, unnamedPathParams, params, queryParams, formParams, headers, cookies);
         logRequestBody(reqSpec, requestBody, headers, (List<Object>) (List<?>) multiParts, config);

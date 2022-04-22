@@ -101,12 +101,4 @@ public class MockMvcRequestMethodTest {
             RestAssuredMockMvc.reset();
         }
     }
-
-    @Test public void
-    throws_iae_when_http_verb_is_not_supported_by_mock_mvc() {
-        exception.expect(IllegalArgumentException.class);
-        exception.expectMessage("HTTP method 'connect' is not supported by MockMvc");
-
-        given().standaloneSetup(new GreetingController()).request("connect", "/greeting");
-    }
 }
