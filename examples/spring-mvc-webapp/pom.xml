@@ -19,7 +19,7 @@
     <parent>
         <groupId>io.rest-assured.examples</groupId>
         <artifactId>example-parent</artifactId>
-        <version>5.1.1-SNAPSHOT</version>
+        <version>6.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -30,8 +30,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.version>4.3.23.RELEASE</spring.version>
-        <spring.security.version>4.1.0.RELEASE</spring.security.version>
+        <spring.version>6.0.0-M3</spring.version>
+        <spring.security.version>6.0.0-M3</spring.security.version>
         <jetty.version>9.4.34.v20201102</jetty.version>
     </properties>
 
@@ -40,7 +40,6 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.4</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
@@ -54,9 +53,10 @@
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>spring-mock-mvc</artifactId>
-            <version>5.1.1-SNAPSHOT</version>
+            <version>6.0.0-SNAPSHOT</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -101,18 +101,22 @@
         <dependency>
             <groupId>jakarta.xml.bind</groupId>
             <artifactId>jakarta.xml.bind-api</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>4.0.1</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>9.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>

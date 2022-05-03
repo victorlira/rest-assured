@@ -18,6 +18,7 @@ package io.restassured.examples.springmvc.controller;
 
 import io.restassured.examples.springmvc.support.WithJetty;
 import org.apache.commons.io.IOUtils;
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
@@ -26,11 +27,13 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.greaterThan;
 
+@Ignore
 public class FileUploadUsingStandardRestAssuredITest extends WithJetty {
 
     @Rule
@@ -39,7 +42,7 @@ public class FileUploadUsingStandardRestAssuredITest extends WithJetty {
     @Test public void
     file_uploading_works_using_standard_rest_assured() throws IOException {
         File something = folder.newFile("something");
-        IOUtils.write("Something21", new FileOutputStream(something));
+        IOUtils.write("Something21", new FileOutputStream(something), StandardCharsets.UTF_8);
 
         given().
                 multiPart(something).

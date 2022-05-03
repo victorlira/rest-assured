@@ -24,8 +24,6 @@ import io.restassured.specification.RequestSender
 import io.restassured.specification.RequestSpecification
 import io.restassured.specification.ResponseSpecification
 
-import static AssertParameter.notNull
-
 /**
  * A test io.restassured.specification contains a {@link ResponseSpecification} and a {@link RequestSpecification}. It's
  * mainly used when you have long specifications, e.g.

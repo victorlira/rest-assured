@@ -21,6 +21,8 @@ import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.config.MockMvcConfig;
 import io.restassured.module.mockmvc.specification.MockMvcRequestSpecBuilder;
 import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;
+import jakarta.servlet.*;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,6 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.util.NestedServletException;
 
-import javax.servlet.*;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -139,13 +140,14 @@ public class AutoSpringSecurityConfigurerITest {
                 get("/secured/greeting");
     }
 
+    @Ignore
     @Test public void
     doesnt_add_spring_security_configurer_automatically_when_a_spring_security_configurer_has_been_manually_applied() {
         final AtomicBoolean filterUsed = new AtomicBoolean(false);
 
         RestAssuredMockMvc.given().
                 webAppContextSetup(context, springSecurity(), springSecurity(new Filter() {
-                    public void init(FilterConfig filterConfig) throws ServletException {
+                    public void init(FilterConfig filterConfig) {
                     }
 
                     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {

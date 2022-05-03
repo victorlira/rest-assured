@@ -32,14 +32,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .anyRequest().permitAll()
                 .antMatchers("/secured/**").hasRole(ROLE_USER)
+                .anyRequest().permitAll()
             .and().httpBasic();
     }
 
 
     @Override
    	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication().withUser("username").password("password").roles(ROLE_USER);
+        auth.inMemoryAuthentication().withUser("username").password("{noop}password").roles(ROLE_USER);
     }
 }

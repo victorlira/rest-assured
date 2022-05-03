@@ -39,6 +39,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -46,6 +47,7 @@ import static io.restassured.RestAssured.withArgs;
 import static io.restassured.config.MultiPartConfig.multiPartConfig;
 import static io.restassured.http.Method.POST;
 import static io.restassured.http.Method.PUT;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
@@ -94,7 +96,7 @@ public class MultiPartFileUploadITest {
     @Test public void
     file_uploading_works() throws IOException {
         File file = folder.newFile("something");
-        IOUtils.write("Something21", new FileOutputStream(file));
+        IOUtils.write("Something21", new FileOutputStream(file), UTF_8);
 
         RestAssuredMockMvc.given().
                 multiPart(file).
@@ -108,7 +110,7 @@ public class MultiPartFileUploadITest {
     @Test public void
     input_stream_uploading_works() throws IOException {
         File file = folder.newFile("something");
-        IOUtils.write("Something21", new FileOutputStream(file));
+        IOUtils.write("Something21", new FileOutputStream(file), UTF_8);
 
         RestAssuredMockMvc.given().
                 multiPart("controlName", "original", new FileInputStream(file)).
@@ -123,7 +125,7 @@ public class MultiPartFileUploadITest {
     }
 
     @Test public void
-    byte_array_uploading_works() throws IOException {
+    byte_array_uploading_works()  {
     	RestAssuredMockMvc.given().
                 multiPart("controlName", "original", "something32".getBytes()).
         when().
@@ -136,7 +138,7 @@ public class MultiPartFileUploadITest {
     }
 
     @Test public void
-    byte_array_uploading_works_with_mime_type() throws IOException {
+    byte_array_uploading_works_with_mime_type()  {
     	RestAssuredMockMvc.given().
                 multiPart("controlName", "original", "something32".getBytes(), "mime-type").
         when().
@@ -151,7 +153,7 @@ public class MultiPartFileUploadITest {
     @Test public void
     multiple_uploads_works() throws IOException {
         File file = folder.newFile("something");
-        IOUtils.write("Something3210", new FileOutputStream(file));
+        IOUtils.write("Something3210", new FileOutputStream(file), UTF_8);
 
         RestAssuredMockMvc.given().
                 multiPart("controlName1", "original1", "something123".getBytes(), "mime-type1").
@@ -175,7 +177,7 @@ public class MultiPartFileUploadITest {
     @Test public void
     object_serialization_works() throws IOException {
         File file = folder.newFile("something");
-        IOUtils.write("Something3210", new FileOutputStream(file));
+        IOUtils.write("Something3210", new FileOutputStream(file), UTF_8);
 
         Greeting greeting = new Greeting();
         greeting.setFirstName("John");
@@ -228,7 +230,7 @@ public class MultiPartFileUploadITest {
     @Test public void
     allows_settings_default_control_name_using_instance_configuration() throws IOException {
         File file = folder.newFile("filename.txt");
-        IOUtils.write("Something21", new FileOutputStream(file));
+        IOUtils.write("Something21", new FileOutputStream(file), UTF_8);
 
         RestAssuredMockMvc.given().
                 config(RestAssuredMockMvcConfig.config().multiPartConfig(multiPartConfig().with().defaultControlName("something"))).
@@ -244,7 +246,7 @@ public class MultiPartFileUploadITest {
     @Test public void
     allows_settings_default_control_name_using_static_configuration() throws IOException {
         File file = folder.newFile("filename.txt");
-        IOUtils.write("Something21", new FileOutputStream(file));
+        IOUtils.write("Something21", new FileOutputStream(file), UTF_8);
 
         RestAssuredMockMvc.config = RestAssuredMockMvcConfig.config().multiPartConfig(multiPartConfig().with().defaultControlName("something"));
 
@@ -259,7 +261,7 @@ public class MultiPartFileUploadITest {
     }
 
     @Test public void
-    allows_settings_default_file_name_using_instance_configuration() throws IOException {
+    allows_settings_default_file_name_using_instance_configuration()  {
         
     	// File upload with Http Method POST
     	RestAssuredMockMvc.given().
@@ -274,7 +276,7 @@ public class MultiPartFileUploadITest {
     }
 
     @Test public void
-    allows_settings_default_file_name_using_static_configuration() throws IOException {
+    allows_settings_default_file_name_using_static_configuration()  {
         RestAssuredMockMvc.config = RestAssuredMockMvcConfig.config().multiPartConfig(multiPartConfig().with().defaultFileName("filename.txt"));
 
         RestAssuredMockMvc.given().
@@ -288,7 +290,7 @@ public class MultiPartFileUploadITest {
     }
 
     @Test public void
-    allows_sending_multipart_without_a_filename_when_default_file_name_is_empty() throws IOException {
+    allows_sending_multipart_without_a_filename_when_default_file_name_is_empty()  {
     	RestAssuredMockMvc.given().
                 config(RestAssuredMockMvcConfig.config().multiPartConfig(multiPartConfig().with().emptyDefaultFileName())).
                 multiPart("controlName", "something32".getBytes()).
@@ -302,7 +304,7 @@ public class MultiPartFileUploadITest {
     }
 
     @Test public void
-    allows_sending_multipart_without_a_filename_when_default_file_name_is_set() throws IOException {
+    allows_sending_multipart_without_a_filename_when_default_file_name_is_set() {
     	RestAssuredMockMvc.given().
                 config(RestAssuredMockMvcConfig.config().multiPartConfig(multiPartConfig().with().defaultFileName("custom"))).
                 multiPart("controlName", null, "something32".getBytes()).
@@ -319,7 +321,7 @@ public class MultiPartFileUploadITest {
        
     	// File upload with Http Method POST
         File file = folder.newFile("filename.txt");
-        IOUtils.write("Something21", new FileOutputStream(file));
+        IOUtils.write("Something21", new FileOutputStream(file), UTF_8);
 
         RestAssuredMockMvc.given().
                	config(RestAssuredMockMvcConfig.config().multiPartConfig(multiPartConfig().defaultSubtype("mixed"))).
@@ -337,7 +339,7 @@ public class MultiPartFileUploadITest {
     @Test public void
     explicit_multi_part_content_type_has_precedence_over_default_subtype() throws Exception {
         File file = folder.newFile("filename.txt");
-        IOUtils.write("Something21", new FileOutputStream(file));
+        IOUtils.write("Something21", new FileOutputStream(file), UTF_8);
 
        RestAssuredMockMvc.given().
                config(RestAssuredMockMvcConfig.config().multiPartConfig(multiPartConfig().defaultSubtype("form-data"))).

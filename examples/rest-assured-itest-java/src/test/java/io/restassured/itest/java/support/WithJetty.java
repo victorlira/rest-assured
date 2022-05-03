@@ -77,7 +77,7 @@ public abstract class WithJetty {
 
         String file = WithJetty.class.getClassLoader().getResource("jetty_localhost_server.jks").getFile();
 
-        SslContextFactory sslContextFactory = new SslContextFactory.Server();
+        SslContextFactory.Server sslContextFactory = new SslContextFactory.Server();
         sslContextFactory.setKeyStorePassword("test1234");
         sslContextFactory.setKeyStorePath(file);
 

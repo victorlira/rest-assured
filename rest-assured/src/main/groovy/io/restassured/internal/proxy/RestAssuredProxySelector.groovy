@@ -18,6 +18,7 @@ package io.restassured.internal.proxy
 
 import io.restassured.specification.ProxySpecification
 
+import java.net.Proxy
 import static io.restassured.internal.common.assertion.AssertParameter.notNull
 import static java.net.Proxy.Type.HTTP
 
